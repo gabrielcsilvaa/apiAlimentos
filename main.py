@@ -9,6 +9,13 @@ class Alimento:
         self.quantidade= quantidade
         self.imagem= imagem
 
+class ModelAlimento(BaseModel):
+    id : int
+    nome: str
+    preco : float
+    disponibilidade: bool
+    quantidade: int
+    imagem: str
 
 alimento1 = Alimento(1, 'uva', 10.50, True, 10, '')
 
