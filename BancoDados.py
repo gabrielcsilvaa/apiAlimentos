@@ -1,21 +1,45 @@
 from pydantic import BaseModel
-from main import Alimento
-
+from Alimentos import Alimento, alimento1
 
 class BancoDados:
-    def __init__(self, objDados = {}):
-        self.dados = objDados
+    def __init__(self, objetoDados={}):
+        self.dados = objetoDados
 
-    #add novo um novo alimento
-
-    def addAlimento(self, alimento: Alimento):
+    #adicionar um novo alimento
+    def adicionarAlimento(self, alimento: Alimento):
         self.dados[alimento.id] = alimento
+
+    def getAlimentos(self):
+        return self.dados
+
+    def getAlimento(self, idAlimento):
+
+        chaves = self.dados.keys()
+        for chave in chaves:
+            print(chave)
+            if idAlimento == chave:
+                return {"dados": self.dados[idAlimento], "statusCode": 200}
+
+        return {"dados": "o id informado não existe no banco", "statusCode": 404}
+
+    def setAlimentos(self, alimento: Alimento):
+        chaves = self.dados.keys()
+        for chaves in chaves:
+            if alimento.id == chave:
+                return {"dados": "o id informado ja existe dentro do banco": "statusCode": 400}
 
 
 bd = BancoDados()
 
-alimento2= Alimento(1, 'uva', 10.50, True, 10, '')
+alimento2 = Alimento(1, 'teste', 10.50, True, 10, '')
 
-bd.addAlimento(alimento2)
+bd.adicionarAlimento(alimento2)
 
-print(bd.dados[1].nome)
+idAlimento=1
+chaves = bd.dados.keys()
+for chave in chaves:
+    print(chave)
+    if idAlimento == chave:
+        print ({"dados": bd.dados[idAlimento], "statusCode": 200})
+
+print({"dados": "o id informado não existe no banco", "statusCode": 404})
